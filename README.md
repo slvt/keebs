@@ -6,8 +6,8 @@ My handwired keyboards. Each folder holds everything needed to build one: the ca
 | --- | --- |
 | [Atari Boy](atariboy) | A handwired replica of the Atari 800 keyboard |
 | [Small Boy](smallboy) | A 51 key wireless handwired keyboard |
+| [Track Boy](trackboy) | A handwired TKL keyboard with an integrated trackball |
 
-More keyboards coming soon.
 
 ## Licence
 
