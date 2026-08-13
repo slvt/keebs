@@ -1,0 +1,7 @@
+if SHIELD_SMALLBOY
+
+# Name must be less than 16 characters long!
+config ZMK_KEYBOARD_NAME
+    default "smallboy"
+
+endif
