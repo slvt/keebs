@@ -8,7 +8,7 @@ My handwired keyboards. Each folder holds everything needed to build one: the ca
 | [Small Boy](smallboy) | A 51-key wireless handwired keyboard |
 | [Track Boy](trackboy) | A handwired TKL keyboard with an integrated trackball |
 | [Tiny Boy](tinyboy) | A handwired 33-key ortholinear keyboard |
-| [Long Boy](longboy) | A handwired 64-key ortholinera keyboard with a numpad |
+| [Long Boy](longboy) | A handwired 64-key ortholinear keyboard with a numpad |
 
 
 ## Licence
