@@ -9,7 +9,7 @@ enum atari800_layers {
   _CONTROL
 };
 
-// Keycodes are mapped for the Atari800 emulator, not for what the keycaps say.
+// Keycodes are mapped for the Atari800 emulator
 // https://github.com/atari800/atari800/blob/master/DOC/USAGE
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC,        KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,   KC_7,    KC_8,    KC_9,    KC_0,    S(KC_LT),   S(KC_GT),    KC_BSPC,       KC_F7, KC_F5,
     KC_TAB,        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,    C(KC_UP),   C(KC_DOWN),  KC_ENT,               KC_F2,
     MO(_CONTROL),  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,   KC_J,    KC_K,    KC_L,    KC_SCLN, C(KC_LEFT), C(KC_RIGHT), KC_CAPS,              KC_F3,
-    MO(_SHIFT),    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_SPC, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,    XXXXXXX,     MO(_SHIFT),    KC_F1, KC_F4
+    MO(_SHIFT),    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_SPC, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,    KC_TILD,     MO(_SHIFT),    KC_F1, KC_F4
 ),
 
 // SHIFT
