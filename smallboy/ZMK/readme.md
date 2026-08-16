@@ -1,12 +1,12 @@
 # Small Boy
 
-ZMK config for the [Small Boy](..), a 51 key wireless handwired keyboard.
+ZMK config for the [Small Boy](..), a 51-key wireless handwired keyboard.
 
 * Keyboard Maintainer: [Salavat Abdullin](https://github.com/slvt)
 * Hardware Supported: nice!nano v2
 * Shield name: `smallboy`
 
-51 keys on a 4×14 matrix, `col2row`. No number row, the layout is built around MT3 Operator keycaps.
+51-key keyboard, no number row, the layout is built around MT3 Operator keycaps.
 
 ## Layers
 
@@ -23,7 +23,7 @@ See [`boards/shields/smallboy/smallboy.keymap`](boards/shields/smallboy/smallboy
 
 ## Building
 
-A ready to flash binary for the default keymap is in [`../Firmware`](../Firmware), so you only need to build if you want to change something.
+A ready-to-flash binary for the default keymap is in [`../Firmware`](../Firmware), so you only need to build if you want to change something.
 
 ZMK builds through GitHub Actions rather than on your own machine. This folder is a complete ZMK config, so you do not need anything else from this repository:
 

@@ -64,6 +64,6 @@ The `BOOT` button is the reliable fallback: it works even if the firmware is bro
 
 ## Credits
 
-This trackball housing and firmware was inspired by and initially prototyped from the [HPD keyboard](https://github.com/ergohaven/hpd). Thanks to Ergohaven for publishing their work as open source!
+This trackball housing and firmware were inspired by and initially prototyped from the [HPD keyboard](https://github.com/ergohaven/hpd). Thanks to Ergohaven for publishing their work as open source!
 
 The firmware started from their QMK code, was modified and stays under GPL-2.0.
