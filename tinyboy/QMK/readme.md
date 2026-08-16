@@ -1,6 +1,6 @@
 # Tiny Boy
 
-A handwired 3x10 ortholinear keyboard, inspired by the [ScottoLong](https://github.com/joe-scotto/scottokeebs/tree/main/ScottoLong).
+A handwired 33-key ortholinear keyboard, inspired by the [ScottoLong](https://github.com/joe-scotto/scottokeebs/tree/main/ScottoLong).
 
 * Keyboard Maintainer: [Salavat Abdullin](https://github.com/slvt)
 * Hardware Supported: RP2040
