@@ -1,6 +1,6 @@
 # Tiny Boy
 
-A handwired 3x10 ortholinear keyboard.
+A handwired 33-key ortholinear keyboard.
 
 Build log coming soon.
 
