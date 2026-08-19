@@ -2,7 +2,7 @@
 
 A handwired 33-key ortholinear keyboard.
 
-Build log coming soon.
+Parts list and the build log are on my site: https://salavat.me/tinyboy/
 
 The layout is inspired by the [ScottoLong](https://github.com/joe-scotto/scottokeebs/tree/main/ScottoLong) by Joe Scotto.
 
