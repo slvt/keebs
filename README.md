@@ -9,6 +9,7 @@ My handwired keyboards. Each folder holds everything needed to build one: the ca
 | [Track Boy](trackboy) | A handwired TKL keyboard with an integrated trackball |
 | [Tiny Boy](tinyboy) | A handwired 33-key ortholinear keyboard |
 | [Long Boy](longboy) | A handwired 64-key ortholinear keyboard with a numpad |
+| [Canon Boy](canonboy) | A handwired replica of the Canon Cat keyboard |
 
 
 ## License

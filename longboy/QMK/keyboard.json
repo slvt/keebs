@@ -17,7 +17,7 @@
         "rows": ["GP17", "GP14", "GP16", "GP15"]
     },
     "processor": "RP2040",
-    "url": "https://salavat.me",
+    "url": "https://github.com/slvt/keebs",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0003",
