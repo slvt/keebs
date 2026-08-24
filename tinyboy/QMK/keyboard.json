@@ -16,7 +16,10 @@
         "rows": ["GP14", "GP13", "GP8", "GP9"]
     },
     "processor": "RP2040",
-    "url": "https://salavat.me",
+    "bootmagic": {
+        "matrix": [0, 0]
+    },
+    "url": "https://github.com/slvt/keebs",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0002",
