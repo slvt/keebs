@@ -9,12 +9,11 @@
 .vscode/
 .idea/
 
-# Build output. The shipped binaries in each keyboard's Firmware/ folder are
-# committed on purpose, everything else is throwaway.
+# Build output. The shipped binaries in each keyboard's firmware/ folder are
+# committed on purpose, everything else is throwaway. Note that .uf2 is not
+# ignored at all: inside this repository it only ever lives in firmware/.
 *.hex
 *.bin
 *.elf
 *.map
 .build/
-*.uf2
-!*/Firmware/*.uf2
