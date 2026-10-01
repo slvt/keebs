@@ -23,7 +23,7 @@ See [`boards/shields/smallboy/smallboy.keymap`](boards/shields/smallboy/smallboy
 
 ## Building
 
-A ready-to-flash binary for the default keymap is in [`../Firmware`](../Firmware), so you only need to build if you want to change something.
+A ready-to-flash binary for the default keymap is in [`../firmware`](../firmware), so you only need to build if you want to change something.
 
 ZMK builds through GitHub Actions rather than on your own machine. This folder is a complete ZMK config, so you do not need anything else from this repository:
 
