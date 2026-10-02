@@ -1,0 +1,38 @@
+{
+    "features": {
+        "bootmagic": true
+    },
+    "manufacturer": "Salavat Abdullin",
+    "keyboard_name": "Track Ball",
+    "url": "https://github.com/slvt/keebs",
+    "maintainer": "Salavat Abdullin",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0004",
+        "device_version": "1.0.0"
+    },
+    "bootmagic": {
+        "matrix": [0, 0]
+    },
+    "vial": {
+        "uid": "5c1e7a94b3d2f608",
+        "matrix": {
+            "rows": 1,
+            "cols": 3
+        }
+    },
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "matrix_pins": {
+        "direct": [["GP6", "GP7", "GP8"]]
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0}
+            ]
+        }
+    }
+}
