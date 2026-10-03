@@ -9,4 +9,4 @@ Prebuilt wired firmware is in [firmware](firmware), `default.uf2` and `vial.uf2`
 
 This is a personal project, not affiliated with, endorsed by, or sponsored by Ergohaven.
 
-This trackball housing was inspired by and initially prototyped from the [HPD keyboard](https://github.com/ergohaven/hpd). Thanks to Ergohaven for publishing their work as open source! The trackball housing, the part the ball sits in, is a modified version of theirs, the same part as in [Track Boy](../trackboy). Their files are licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/), so this case carries the same license.
+This trackball housing and the QMK firmware were inspired by and initially prototyped from the [HPD keyboard](https://github.com/ergohaven/hpd). Thanks to Ergohaven for publishing their work as open source! The trackball housing, the part the ball sits in, is a modified version of theirs, the same part as in [Track Boy](../trackboy). Their files are licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/), so this case carries the same license. The QMK firmware started from their code and stays under GPL-2.0.
