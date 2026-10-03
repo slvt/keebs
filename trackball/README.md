@@ -7,4 +7,6 @@ A handwired trackball with a PMW3389 sensor and three buttons, in two versions:
 
 Prebuilt wired firmware is in [firmware](firmware), `default.uf2` and `vial.uf2`.
 
-This is a personal project, not affiliated with, endorsed by, or sponsored by Ergohaven. The case is derived from the [HPD keyboard](https://github.com/ergohaven/hpd) trackball housing and carries its license, [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+This is a personal project, not affiliated with, endorsed by, or sponsored by Ergohaven.
+
+This trackball housing was inspired by and initially prototyped from the [HPD keyboard](https://github.com/ergohaven/hpd). Thanks to Ergohaven for publishing their work as open source! The trackball housing, the part the ball sits in, is a modified version of theirs, the same part as in [Track Boy](../trackboy). Their files are licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/), so this case carries the same license.
