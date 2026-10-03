@@ -1,0 +1,2 @@
+rsource "input/Kconfig"
+rsource "persist/Kconfig"

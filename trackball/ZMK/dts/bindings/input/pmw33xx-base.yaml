@@ -1,0 +1,53 @@
+# Copyright (c) 2025 George Norton
+# SPDX-License-Identifier: MIT
+#
+# Properties shared by the PMW3360 and PMW3389 bindings. Based on
+# https://github.com/george-norton/zmk-driver-pmw3360
+
+include: spi-device.yaml
+
+properties:
+  irq-gpios:
+    type: phandle-array
+    required: true
+    description: "The GPIO which has the motion pin wired to it."
+  reset-gpios:
+    type: phandle-array
+    description: "The GPIO which is wired to the reset pin, not used if not specifed."
+  cpi:
+    type: int
+    default: 800
+    description: |
+      CPI value. PMW3360: 100 to 12000 in steps of 100.
+      PMW3389: 50 to 16000 in steps of 50.
+  report-interval-ms:
+    type: int
+    default: 8
+    description: |
+      Minimum time between two motion reports, in milliseconds. The motion
+      interrupt is held off for this long after every report, so the sensor
+      adds up the movement and one report carries the sum. Over Bluetooth this
+      stops the radio from being flooded with tiny reports. 0 turns the limit
+      off and sends a report per sensor read.
+  rotate-90:
+    type: boolean
+    description: "PMW3360 only. The sensor is installed rotated 90 degrees. Rotation properties are mutually exclusive."
+  rotate-180:
+    type: boolean
+    description: "PMW3360 only. The sensor is installed rotated 180 degrees. Rotation properties are mutually exclusive."
+  rotate-270:
+    type: boolean
+    description: "PMW3360 only. The sensor is installed rotated 270 degrees. Rotation properties are mutually exclusive."
+  angle-tune:
+    type: int
+    default: 0
+    description: "Adjust the sensor angle in degrees (Range: -30 - 30)."
+  lift-height-3mm:
+    type: boolean
+    description: "Configure the lift-off height to be 3mm rather than the default 2mm."
+  invert-x:
+    type: boolean
+    description: "If true, invert the X axis."
+  invert-y:
+    type: boolean
+    description: "If true, invert the Y axis."

@@ -1,0 +1,8 @@
+# Copyright (c) 2025 The ZMK Contributors
+# SPDX-License-Identifier: MIT
+description: |
+  Sensor driver for the pixart PMW3389 optical mouse sensor
+
+compatible: "pixart,pmw3389"
+
+include: pmw33xx-base.yaml

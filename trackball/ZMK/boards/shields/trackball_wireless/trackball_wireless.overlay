@@ -1,0 +1,183 @@
+// Trackball Wireless
+//
+// nice!nano v2 + PMW3389 optical sensor + 3 direct buttons.
+//
+// Sensor wiring, wire colour on the breakout to the pro micro pin:
+//   red      CS     D1  P0.06
+//   brown    MISO   D0  P0.08
+//   black    MOSI   D2  P0.17
+//   white    SCLK   D3  P0.20
+//   green    MOT    D4  P0.22   interrupt, active low, pull-up
+//   -        VCC    3.3V
+//   -        GND    GND
+//
+// Buttons, active low to GND with internal pull-up:
+//   left    D7  P0.11
+//   middle  D8  P1.04
+//   right   D9  P1.06
+
+#include <behaviors.dtsi>
+#include <input/processors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/pointing.h>
+#include <zephyr/dt-bindings/input/input-event-codes.h>
+#include <zephyr/dt-bindings/pinctrl/nrf-pinctrl.h>
+#include <zephyr/dt-bindings/gpio/gpio.h>
+
+/ {
+    chosen {
+        zmk,kscan = &trackball_buttons;
+    };
+
+    trackball_buttons: trackball_buttons {
+        compatible = "zmk,kscan-gpio-direct";
+        input-gpios
+            = <&pro_micro 7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // 0 left
+            , <&pro_micro 8 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // 1 middle
+            , <&pro_micro 9 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // 2 right
+            ;
+    };
+
+    // Vertical scroll only. The ZMK built in zip_xy_to_scroll_mapper sends X to
+    // INPUT_REL_HWHEEL as well, so rolling the ball sideways would scroll
+    // horizontally. This maps Y and nothing else, and the X scaler below zeroes
+    // X so the ball does not also drive the cursor while scrolling.
+    y_to_scroll: y_to_scroll {
+        compatible = "zmk,input-processor-code-mapper";
+        #input-processor-cells = <0>;
+        type = <INPUT_EV_REL>;
+        map
+            = <INPUT_REL_Y INPUT_REL_WHEEL>
+            ;
+    };
+};
+
+&pinctrl {
+    // Zephyr 3.5 renamed pinmux to psels for the nRF pin controller.
+    pmspi_default: pmspi_default {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK, 0, 20)>
+                  , <NRF_PSEL(SPIM_MOSI, 0, 17)>
+                  , <NRF_PSEL(SPIM_MISO, 0, 8)>
+                  ;
+        };
+    };
+
+    pmspi_sleep: pmspi_sleep {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK, 0, 20)>
+                  , <NRF_PSEL(SPIM_MOSI, 0, 17)>
+                  , <NRF_PSEL(SPIM_MISO, 0, 8)>
+                  ;
+            low-power-enable;
+        };
+    };
+};
+
+&spi0 {
+    compatible = "nordic,nrf-spim";
+    status = "okay";
+    pinctrl-0 = <&pmspi_default>;
+    pinctrl-1 = <&pmspi_sleep>;
+    pinctrl-names = "default", "sleep";
+
+    cs-gpios = <&gpio0 6 GPIO_ACTIVE_LOW>;
+
+    trackball: trackball@0 {
+        compatible = "pixart,pmw3389";
+        reg = <0>;
+        spi-max-frequency = <2000000>;
+
+        irq-gpios = <&gpio0 22 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+
+        // Sensor runs at 400 CPI. The five user facing DPI steps are produced
+        // by the scaling input processor in the layers below, as fractions of
+        // this value, so changing it changes every step. The PMW3389 takes
+        // multiples of 50.
+        cpi = <400>;
+
+        // One motion report per 8 ms at most, the sensor adds the movement up
+        // in between. Without it every sensor read becomes a report, hundreds
+        // a second, which a Bluetooth link cannot carry.
+        report-interval-ms = <8>;
+
+        // The sensor is mounted so that its Y axis points the wrong way, the
+        // pointer moved down when the ball was pushed up. invert-y flips the
+        // whole Y axis at the source, so cursor and scroll both follow without
+        // touching the input processors below.
+        invert-y;
+
+        // Uncomment once the mounting angle is known. rotate-90 and friends are
+        // PMW3360 only and are ignored on the PMW3389.
+        // angle-tune = <0>;
+    };
+};
+
+&trackball {
+    trackball_listener {
+        compatible = "zmk,input-listener";
+        device = <&trackball>;
+
+        // Layer 0 baseline, step 2: 400 * 3/4 = 300 effective CPI, the default.
+        input-processors = <&zip_xy_scaler 3 4>;
+
+        // Scroll overrides must come before the DPI overrides.
+        // The listener walks overrides in order and stops at the first
+        // layer that is active, so scroll wins while it is held.
+        //
+        // The scroll scaler is value * 1 / 40: one wheel step per forty sensor
+        // counts. A smaller divisor gives one step per few counts of ball
+        // movement, which reads as jitter rather than scrolling.
+        //
+        // &y_to_scroll maps Y to the wheel only. &zip_x_scaler 0 1 drops the X
+        // axis entirely so sideways ball movement neither scrolls nor moves
+        // the cursor while this layer is held.
+
+        scroll_step0 {
+            layers = <7>;
+            input-processors = <&y_to_scroll &zip_x_scaler 0 1 &zip_scroll_scaler 1 40>;
+        };
+
+        scroll_step1 {
+            layers = <8>;
+            input-processors = <&y_to_scroll &zip_x_scaler 0 1 &zip_scroll_scaler 1 40>;
+        };
+
+        scroll_step2 {
+            layers = <9>;
+            input-processors = <&y_to_scroll &zip_x_scaler 0 1 &zip_scroll_scaler 1 40>;
+        };
+
+        scroll_step3 {
+            layers = <10>;
+            input-processors = <&y_to_scroll &zip_x_scaler 0 1 &zip_scroll_scaler 1 40>;
+        };
+
+        scroll_step4 {
+            layers = <11>;
+            input-processors = <&y_to_scroll &zip_x_scaler 0 1 &zip_scroll_scaler 1 40>;
+        };
+
+        // DPI steps around the baseline. Step 2 (layer 3, 300) is the baseline
+        // itself and needs no override. 400 scaled to 100 / 200 / 400 / 500.
+        dpi_step0 {
+            layers = <1>;
+            input-processors = <&zip_xy_scaler 1 4>;
+        };
+
+        dpi_step1 {
+            layers = <2>;
+            input-processors = <&zip_xy_scaler 1 2>;
+        };
+
+        dpi_step3 {
+            layers = <4>;
+            input-processors = <&zip_xy_scaler 1 1>;
+        };
+
+        dpi_step4 {
+            layers = <5>;
+            input-processors = <&zip_xy_scaler 5 4>;
+        };
+    };
+};

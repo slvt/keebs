@@ -1,0 +1,28 @@
+# Copyright (c) 2025 George Norton
+# SPDX-License-Identifier: MIT
+#
+# PMW3360 and PMW3389 optical mouse sensor driver
+
+menuconfig INPUT_PIXART_PMW33XX
+    bool "PMW3360 and PMW3389 optical mouse sensors"
+    default y
+    select GPIO
+    select SPI
+    depends on INPUT
+    depends on DT_HAS_PIXART_PMW3360_ENABLED || DT_HAS_PIXART_PMW3389_ENABLED
+    help
+      Enable the PMW3360 and PMW3389 optical mouse sensor driver.
+
+config INPUT_PIXART_PMW33XX_USE_OWN_THREAD
+    bool "Create a thread for the PMW33XX driver."
+    default y
+
+config INPUT_PIXART_PMW33XX_THREAD_PRIORITY
+    int "The priority of the PMW33XX driver thread."
+    depends on INPUT_PIXART_PMW33XX_USE_OWN_THREAD
+    default 5
+
+config INPUT_PIXART_PMW33XX_THREAD_STACK_SIZE
+    int "The stack size of the PMW33XX driver thread."
+    depends on INPUT_PIXART_PMW33XX_USE_OWN_THREAD
+    default 768

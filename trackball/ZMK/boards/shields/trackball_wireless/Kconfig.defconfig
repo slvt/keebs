@@ -1,0 +1,33 @@
+if SHIELD_TRACKBALL_WIRELESS
+
+# Name must be less than 16 characters long!
+config ZMK_KEYBOARD_NAME
+    default "Trackball"
+
+config ZMK_POINTING
+    default y
+
+# Standalone device, nothing to pair with, always be the central side.
+config BT_CTLR
+    default y
+
+# Mouse traffic wants steady, frequent connection events. ZMK defaults are
+# 7.5 to 15 ms with slave latency 30, tuned for keyboards, and the host may
+# skip up to 30 events, which shows up as a jerky cursor. Over USB it is smooth.
+# macOS rejects requests outside its accessory rules, and then keeps its own
+# interval, about 30 ms, which feels like 30 fps. An interval of 15 ms with min
+# and max equal is accepted, so both are 12 units of 1.25 ms.
+config BT_PERIPHERAL_PREF_MIN_INT
+    default 12
+
+config BT_PERIPHERAL_PREF_MAX_INT
+    default 12
+
+config BT_PERIPHERAL_PREF_LATENCY
+    default 0
+
+# Buttons wake the MCU through GPIO interrupts, no polling needed.
+config ZMK_KSCAN_DIRECT_POLLING
+    default n
+
+endif
