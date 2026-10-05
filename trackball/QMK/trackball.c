@@ -30,7 +30,9 @@
 /* How long a button has to be held before it counts as a hold rather than a
  * tap. A keymap can override either of them. In 3 button mode the left and right
  * buttons wait TB_CHORD_TERM for each other, so pressing both together toggles
- * left handed mode instead of clicking. */
+ * left handed mode instead of clicking. A keymap that defines
+ * TB_NO_CHORD_LEFT_HANDED drops the chord and the wait, left handed mode is then
+ * only set through the layout option. */
 #ifndef TB_LEFT_HOLD_TERM
 #    define TB_LEFT_HOLD_TERM TAPPING_TERM
 #endif
@@ -41,7 +43,11 @@
 #    define TB_MID_HOLD_TERM TAPPING_TERM
 #endif
 #ifndef TB_CHORD_TERM
-#    define TB_CHORD_TERM 50
+#    ifdef TB_NO_CHORD_LEFT_HANDED
+#        define TB_CHORD_TERM 0
+#    else
+#        define TB_CHORD_TERM 50
+#    endif
 #endif
 
 static const uint16_t dpi_table[]    = {100, 200, 300, 400, 500, 600, 800, 1000, 1200, 1600, 2000, 2500, 3200, 4000, 5000};
@@ -138,6 +144,7 @@ report_mouse_t pointing_device_task_kb(report_mouse_t report) {
     return pointing_device_task_user(report);
 }
 
+#ifndef TB_NO_CHORD_LEFT_HANDED
 static void toggle_left_handed(void) {
 #ifdef VIA_ENABLE
     /* Stores the option and calls via_set_layout_options_kb, so it survives a restart. */
@@ -146,6 +153,7 @@ static void toggle_left_handed(void) {
     left_handed = !left_handed;
 #endif
 }
+#endif
 
 void matrix_scan_kb(void) {
     if (three_buttons) {
@@ -258,11 +266,14 @@ static void process_three_buttons(uint16_t keycode, bool pressed) {
                 if (chord_fired) {
                     break;
                 }
+#ifndef TB_NO_CHORD_LEFT_HANDED
                 if (right_button_pending) {
                     right_button_pending = false;
                     chord_fired          = true;
                     toggle_left_handed();
-                } else {
+                } else
+#endif
+                {
                     left_button_timer   = timer_read();
                     left_button_pending = true;
                 }
@@ -290,11 +301,14 @@ static void process_three_buttons(uint16_t keycode, bool pressed) {
                 if (chord_fired) {
                     break;
                 }
+#ifndef TB_NO_CHORD_LEFT_HANDED
                 if (left_button_pending) {
                     left_button_pending = false;
                     chord_fired         = true;
                     toggle_left_handed();
-                } else {
+                } else
+#endif
+                {
                     right_button_timer   = timer_read();
                     right_button_pending = true;
                 }

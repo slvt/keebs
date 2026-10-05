@@ -37,9 +37,9 @@ Three buttons:
 * Right button: right mouse click
 * Middle button tap: middle click
 * Middle button hold: scroll mode, or press any other button while holding it
-* Left and right together: toggles left handed mode, which swaps left and right
+* Left and right together (`default` keymap only): toggles left handed mode, which swaps left and right
 
-Left and right wait 50 ms for each other so the chord can be told from two clicks. Change `TB_CHORD_TERM` in `config.h` to tune it.
+In the `default` keymap, left and right wait 50 ms for each other so the chord can be told from two clicks. Change `TB_CHORD_TERM` in `config.h` to tune it. The `vial` keymap defines `TB_NO_CHORD_LEFT_HANDED`: there is no chord and no wait, and left handed mode is switched only by the Left handed checkbox in Vial, so the checkbox always matches the real state.
 
 ## Layout Options
 
