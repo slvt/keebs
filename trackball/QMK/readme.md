@@ -20,7 +20,9 @@ The keymap has a single 1x3 matrix of direct pins, the buttons are handled in [`
 | Middle button | GP7 |
 | Right button | GP8 |
 
-Buttons connect the pin to GND. With 2 buttons, the left and right ones are used and the middle one is left out.
+Buttons connect the pin to GND. With 2 buttons, the left and right ones are used and the middle one is left out. With 1 button, only the left one is used. Solder only the buttons you have and pick the same number in the Buttons option in Vial. In the Vial layout the buttons are drawn 3U wide for 1 button, 1.5U for 2 and 1U for 3.
+
+Holding the left button while plugging in the USB cable enters the bootloader, so this works with any number of buttons. Vial Unlock (matrix tester only) needs the left and right buttons together, so it is not available with 1 button.
 
 ## Trackball Controls
 
@@ -51,7 +53,7 @@ Exposed through VIA and Vial, stored in EEPROM. Field order matches the `labels`
 | Scroll speed | 1/8 to 1/80 | 1/48 |
 | Enable drag DPI | on, off | off |
 | Drag DPI | 100 to 5000 | 500 |
-| Buttons | 2, 3 | 3 |
+| Buttons | 1, 2, 3 | 3 |
 | Left handed | on, off | off |
 
 ## Building

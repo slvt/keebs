@@ -12,16 +12,21 @@
  * least significant. */
 #define TRACKBALL_LEFT_HANDED_SHIFT     0
 #define TRACKBALL_LEFT_HANDED_MASK      (0x01u << TRACKBALL_LEFT_HANDED_SHIFT)
-#define TRACKBALL_THREE_BUTTONS_SHIFT   1
-#define TRACKBALL_THREE_BUTTONS_MASK    (0x01u << TRACKBALL_THREE_BUTTONS_SHIFT)
-#define TRACKBALL_DRAG_DPI_SHIFT        2
+#define TRACKBALL_BUTTONS_SHIFT         1
+#define TRACKBALL_BUTTONS_MASK          (0x03u << TRACKBALL_BUTTONS_SHIFT)
+#define TRACKBALL_DRAG_DPI_SHIFT        3
 #define TRACKBALL_DRAG_DPI_MASK         (0x0Fu << TRACKBALL_DRAG_DPI_SHIFT)
-#define TRACKBALL_DRAG_DPI_ENABLE_SHIFT 6
+#define TRACKBALL_DRAG_DPI_ENABLE_SHIFT 7
 #define TRACKBALL_DRAG_DPI_ENABLE_MASK  (0x01u << TRACKBALL_DRAG_DPI_ENABLE_SHIFT)
-#define TRACKBALL_SCROLL_SHIFT          7
+#define TRACKBALL_SCROLL_SHIFT          8
 #define TRACKBALL_SCROLL_MASK           (0x0Fu << TRACKBALL_SCROLL_SHIFT)
-#define TRACKBALL_DPI_SHIFT             11
+#define TRACKBALL_DPI_SHIFT             12
 #define TRACKBALL_DPI_MASK              (0x0Fu << TRACKBALL_DPI_SHIFT)
+
+/* Values of the Buttons field, the same order as the Buttons label in vial.json. */
+#define TRACKBALL_ONE_BUTTON    0
+#define TRACKBALL_TWO_BUTTONS   1
+#define TRACKBALL_THREE_BUTTONS 2
 
 #define TRACKBALL_DRAG_DPI_DEFAULT_IDX 4
 #define TRACKBALL_DPI_DEFAULT_IDX      7
@@ -105,7 +110,7 @@ static void apply_layout_options(uint32_t raw) {
     drag_dpi_index   = clamp_dpi_index((raw & TRACKBALL_DRAG_DPI_MASK) >> TRACKBALL_DRAG_DPI_SHIFT);
     dpi_index        = clamp_dpi_index((raw & TRACKBALL_DPI_MASK) >> TRACKBALL_DPI_SHIFT);
     scroll_index     = clamp_scroll_index((raw & TRACKBALL_SCROLL_MASK) >> TRACKBALL_SCROLL_SHIFT);
-    three_buttons    = (raw & TRACKBALL_THREE_BUTTONS_MASK) != 0;
+    three_buttons    = ((raw & TRACKBALL_BUTTONS_MASK) >> TRACKBALL_BUTTONS_SHIFT) == TRACKBALL_THREE_BUTTONS;
     left_handed      = (raw & TRACKBALL_LEFT_HANDED_MASK) != 0;
     refresh_cpi();
 }
