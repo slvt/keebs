@@ -45,12 +45,12 @@ Three buttons:
 * Right button: right mouse click
 * Middle button tap: middle click
 * Middle button hold: scroll mode
-* Middle button held, then the right button on the case (`default` keymaps only): next DPI step
-* Middle button held, then the left button on the case (`default` keymaps only): previous DPI step. The gesture follows the physical position, also in `default_left`. The middle button gives no click after a DPI step
+* Middle button held, then the right button on the case (`default` keymap only): next DPI step
+* Middle button held, then the left button on the case (`default` keymap only): previous DPI step. The gesture follows the physical position of the buttons, also with swapped keys. The middle button gives no click after a DPI step
 
-Nothing waits for anything: left and right clicks are sent at once. There is no chord for left handed mode. The `vial` keymap switches it with the Left handed checkbox. The `default_left` keymap is the left handed version of `default`, with the left and right buttons swapped.
+Nothing waits for anything: left and right clicks are sent at once. There is no chord for left handed mode. The `vial` keymap switches it with the Left handed checkbox. For the `default` keymap, swap the first and last key of layer 0 in `keymaps/default/keymap.c`, `LAYOUT(TB_RIGHT_BTN, TB_MID_BTN, TB_LEFT_BTN)`, and build it yourself. The DPI gesture follows the physical buttons, so it stays right.
 
-The DPI step of the `default` keymaps is stored in the keyboard EEPROM word together with an id of the build, so it survives power off but a freshly flashed build starts from the default DPI of 1000 again. The `vial` keymap keeps all options in Vial and has no DPI gesture. DPI gestures are not available with 1 or 2 buttons.
+The DPI step of the `default` keymap is stored in the keyboard EEPROM word together with an id of the build, so it survives power off but a freshly flashed build starts from the default DPI of 1000 again. The `vial` keymap keeps all options in Vial and has no DPI gesture. DPI gestures are not available with 1 or 2 buttons.
 
 ## Layout Options
 
@@ -58,11 +58,11 @@ Exposed through VIA and Vial, stored in EEPROM. Field order matches the `labels`
 
 | Option | Values | Default |
 | --- | --- | --- |
+| Buttons | 1, 2, 3 | 3 |
 | DPI | 100 to 5000 | 1000 |
 | Scroll speed | 1/8 to 1/80 | 1/48 |
 | Enable drag DPI | on, off | off |
 | Drag DPI | 100 to 5000 | 500 |
-| Buttons | 1, 2, 3 | 3 |
 | Left handed | on, off | off |
 
 ## Building
@@ -75,9 +75,9 @@ Copy this folder into your firmware tree as `keyboards/slvtkeebs/trackball`. The
     cp -r <this folder> keyboards/slvtkeebs/trackball
     qmk compile -kb slvtkeebs/trackball -km vial
 
-The `default` and `default_left` keymaps target plain [QMK](https://github.com/qmk/qmk_firmware) without VIA and do not build in Vial-QMK.
+The `default` keymap targets plain [QMK](https://github.com/qmk/qmk_firmware) without VIA and does not build in Vial-QMK.
 
-The keymaps share the same layout: `keymaps/vial/keymap.c` includes `keymaps/default/keymap.c`, and `default_left` is the same with the outer buttons swapped. The `vial` keymap adds `vial.json`, the keyboard UID and the unlock combo.
+The keymaps share the same layout: `keymaps/vial/keymap.c` includes `keymaps/default/keymap.c`. The `vial` keymap adds `vial.json`, the keyboard UID and the unlock combo.
 
 The resulting `.uf2` is written to the root of the tree you built in.
 
