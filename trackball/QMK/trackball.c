@@ -285,16 +285,19 @@ static void process_one_button(bool pressed) {
 
 /* Three buttons: left and right are plain clicks, middle is a tap for middle
  * click and a hold for scroll. Nothing is delayed. Without VIA the middle
- * button also works as a modifier, see TB_DPI_GESTURE: left and right then change
- * the DPI instead of clicking, and the middle button gives no click. */
-static void process_three_buttons(uint16_t keycode, bool pressed) {
+ * button also works as a modifier, see TB_DPI_GESTURE: the left and right
+ * buttons then change the DPI instead of clicking, and the middle button gives
+ * no click. The gesture follows the physical position (the matrix column), so
+ * the right button is always up and the left one always down, also in the left
+ * handed keymap where the two buttons have swapped roles. */
+static void process_three_buttons(uint16_t keycode, uint8_t col, bool pressed) {
     switch (keycode) {
         case TB_LEFT_BTN:
             if (pressed) {
 #ifdef TB_DPI_GESTURE
                 if (mid_button_pressed) {
                     mid_button_pending = false;
-                    step_dpi(-1);
+                    step_dpi(col == 0 ? -1 : 1);
                     break;
                 }
 #endif
@@ -313,7 +316,7 @@ static void process_three_buttons(uint16_t keycode, bool pressed) {
 #ifdef TB_DPI_GESTURE
                 if (mid_button_pressed) {
                     mid_button_pending = false;
-                    step_dpi(1);
+                    step_dpi(col == 0 ? -1 : 1);
                     break;
                 }
 #endif
@@ -361,7 +364,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
 
             if (three_buttons) {
-                process_three_buttons(keycode, record->event.pressed);
+                process_three_buttons(keycode, record->event.key.col, record->event.pressed);
             } else {
                 process_two_buttons(keycode, record->event.pressed);
             }

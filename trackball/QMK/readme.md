@@ -45,8 +45,8 @@ Three buttons:
 * Right button: right mouse click
 * Middle button tap: middle click
 * Middle button hold: scroll mode
-* Middle button held, then right (`default` keymaps only): next DPI step
-* Middle button held, then left (`default` keymaps only): previous DPI step. The middle button gives no click after a DPI step
+* Middle button held, then the right button on the case (`default` keymaps only): next DPI step
+* Middle button held, then the left button on the case (`default` keymaps only): previous DPI step. The gesture follows the physical position, also in `default_left`. The middle button gives no click after a DPI step
 
 Nothing waits for anything: left and right clicks are sent at once. There is no chord for left handed mode. The `vial` keymap switches it with the Left handed checkbox. The `default_left` keymap is the left handed version of `default`, with the left and right buttons swapped.
 
