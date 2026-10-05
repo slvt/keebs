@@ -50,6 +50,8 @@ Three buttons:
 
 Nothing waits for anything: left and right clicks are sent at once. There is no chord for left handed mode. The `vial` keymap switches it with the Left handed checkbox. For the `default` keymap, swap the first and last key of layer 0 in `keymaps/default/keymap.c`, `LAYOUT(TB_RIGHT_BTN, TB_MID_BTN, TB_LEFT_BTN)`, and build it yourself. The DPI gesture follows the physical buttons, so it stays right.
 
+The `default` keymap is built for 3 buttons. For 1 or 2 buttons use the `vial` keymap and pick the number in the Buttons option.
+
 The DPI step of the `default` keymap is stored in the keyboard EEPROM word together with an id of the build, so it survives power off but a freshly flashed build starts from the default DPI of 1000 again. The `vial` keymap keeps all options in Vial and has no DPI gesture. DPI gestures are not available with 1 or 2 buttons.
 
 ## Layout Options
