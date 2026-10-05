@@ -26,6 +26,12 @@ Holding the left button while plugging in the USB cable enters the bootloader, s
 
 ## Trackball Controls
 
+One button (experimental, left pin only):
+
+* Tap: left mouse click
+* Hold while moving the ball: select or drag, drag DPI applies while it is held, if enabled
+* No right click, no scroll and no middle click. Left handed mode has no effect
+
 Two buttons:
 
 * Left button: left mouse click

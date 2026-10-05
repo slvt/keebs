@@ -63,6 +63,7 @@ static uint8_t drag_dpi_index   = TRACKBALL_DRAG_DPI_DEFAULT_IDX;
 static uint8_t scroll_index     = TRACKBALL_SCROLL_DEFAULT_IDX;
 static bool    drag_dpi_enabled = true;
 static bool    three_buttons    = true;
+static bool    one_button       = false;
 static bool    left_handed      = false;
 
 static bool     left_button_held        = false;
@@ -110,7 +111,9 @@ static void apply_layout_options(uint32_t raw) {
     drag_dpi_index   = clamp_dpi_index((raw & TRACKBALL_DRAG_DPI_MASK) >> TRACKBALL_DRAG_DPI_SHIFT);
     dpi_index        = clamp_dpi_index((raw & TRACKBALL_DPI_MASK) >> TRACKBALL_DPI_SHIFT);
     scroll_index     = clamp_scroll_index((raw & TRACKBALL_SCROLL_MASK) >> TRACKBALL_SCROLL_SHIFT);
-    three_buttons    = ((raw & TRACKBALL_BUTTONS_MASK) >> TRACKBALL_BUTTONS_SHIFT) == TRACKBALL_THREE_BUTTONS;
+    uint8_t buttons  = (raw & TRACKBALL_BUTTONS_MASK) >> TRACKBALL_BUTTONS_SHIFT;
+    three_buttons    = buttons == TRACKBALL_THREE_BUTTONS;
+    one_button       = buttons == TRACKBALL_ONE_BUTTON;
     left_handed      = (raw & TRACKBALL_LEFT_HANDED_MASK) != 0;
     refresh_cpi();
 }
@@ -253,6 +256,20 @@ static void process_two_buttons(uint16_t keycode, bool pressed) {
     }
 }
 
+/* One button: only a left button, wired to the left pin. Pressing it holds the
+ * left mouse button, so a tap is a click and holding it while moving the ball
+ * selects or drags, like on the one button Macs. Nothing is delayed. The drag
+ * DPI applies while it is held, if enabled. Left handed mode has no effect. */
+static void process_one_button(bool pressed) {
+    if (pressed) {
+        register_code16(MS_BTN1);
+        set_left_button_held(true);
+    } else {
+        set_left_button_held(false);
+        unregister_code16(MS_BTN1);
+    }
+}
+
 /* Three buttons: left and right are plain clicks, middle is a tap for middle
  * click and a hold for scroll, left plus right together toggles left handed
  * mode. A button press is held back for TB_CHORD_TERM so the chord can be told
@@ -357,6 +374,13 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         case TB_LEFT_BTN:
         case TB_RIGHT_BTN:
         case TB_MID_BTN:
+            if (one_button) {
+                if (keycode == TB_LEFT_BTN) {
+                    process_one_button(record->event.pressed);
+                }
+                return false;
+            }
+
             /* Left handed mode swaps the roles of the outer buttons. */
             if (left_handed && keycode != TB_MID_BTN) {
                 keycode = (keycode == TB_LEFT_BTN) ? TB_RIGHT_BTN : TB_LEFT_BTN;
