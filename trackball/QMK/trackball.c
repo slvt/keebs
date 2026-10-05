@@ -44,8 +44,17 @@
 #    define TB_MID_HOLD_TERM TAPPING_TERM
 #endif
 
-#ifndef VIA_ENABLE
-/* Without VIA or Vial the DPI is changed by a gesture: hold the middle button
+#ifndef VIAL_ENABLE
+/* Number of buttons without Vial: 1, 2 or 3. Set it in the config.h of the
+ * keymap. */
+#    ifndef TB_BUTTONS
+#        define TB_BUTTONS 3
+#    endif
+#    if TB_BUTTONS < 1 || TB_BUTTONS > 3
+#        error "TB_BUTTONS has to be 1, 2 or 3"
+#    endif
+
+/* Without Vial the DPI is changed by a gesture: hold the middle button
  * and press right for the next DPI step or left for the previous one. The step
  * is stored in the keyboard EEPROM word together with an id of this build, so a
  * newly flashed build starts from the default DPI again. */
@@ -152,10 +161,10 @@ void via_set_layout_options_kb(uint32_t raw) {
 }
 
 void pointing_device_init_kb(void) {
-#ifdef VIA_ENABLE
+#ifdef VIAL_ENABLE
     apply_layout_options(via_get_layout_options());
 #else
-    uint32_t raw    = VIA_EEPROM_LAYOUT_OPTIONS_DEFAULT;
+    uint32_t raw    = (VIA_EEPROM_LAYOUT_OPTIONS_DEFAULT & ~TRACKBALL_BUTTONS_MASK) | ((uint32_t)(TB_BUTTONS - 1) << TRACKBALL_BUTTONS_SHIFT);
     uint32_t stored = eeconfig_read_kb();
 
     if ((stored >> 16) == build_id()) {
@@ -284,7 +293,7 @@ static void process_one_button(bool pressed) {
 }
 
 /* Three buttons: left and right are plain clicks, middle is a tap for middle
- * click and a hold for scroll. Nothing is delayed. Without VIA the middle
+ * click and a hold for scroll. Nothing is delayed. Without Vial the middle
  * button also works as a modifier, see TB_DPI_GESTURE: the left and right
  * buttons then change the DPI instead of clicking, and the middle button gives
  * no click. The gesture follows the physical position (the matrix column), so
