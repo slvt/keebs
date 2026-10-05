@@ -44,10 +44,13 @@ Three buttons:
 * Left button: left mouse click, drag DPI applies while it is held, if enabled
 * Right button: right mouse click
 * Middle button tap: middle click
-* Middle button hold: scroll mode, or press any other button while holding it
-* Left and right together (`default` keymap only): toggles left handed mode, which swaps left and right
+* Middle button hold: scroll mode
+* Middle button held, then right (`default` keymaps only): next DPI step
+* Middle button held, then left (`default` keymaps only): previous DPI step. The middle button gives no click after a DPI step
 
-In the `default` keymap, left and right wait 50 ms for each other so the chord can be told from two clicks. Change `TB_CHORD_TERM` in `config.h` to tune it. The `vial` keymap defines `TB_NO_CHORD_LEFT_HANDED`: there is no chord and no wait, and left handed mode is switched only by the Left handed checkbox in Vial, so the checkbox always matches the real state.
+Nothing waits for anything: left and right clicks are sent at once. There is no chord for left handed mode. The `vial` keymap switches it with the Left handed checkbox. The `default_left` keymap is the left handed version of `default`, with the left and right buttons swapped.
+
+The DPI step of the `default` keymaps is stored in the keyboard EEPROM word together with an id of the build, so it survives power off but a freshly flashed build starts from the default DPI of 1000 again. The `vial` keymap keeps all options in Vial and has no DPI gesture. DPI gestures are not available with 1 or 2 buttons.
 
 ## Layout Options
 
@@ -72,9 +75,9 @@ Copy this folder into your firmware tree as `keyboards/slvtkeebs/trackball`. The
     cp -r <this folder> keyboards/slvtkeebs/trackball
     qmk compile -kb slvtkeebs/trackball -km vial
 
-The `default` keymap targets plain [QMK](https://github.com/qmk/qmk_firmware) with VIA and does not build in Vial-QMK.
+The `default` and `default_left` keymaps target plain [QMK](https://github.com/qmk/qmk_firmware) without VIA and do not build in Vial-QMK.
 
-Both keymaps share the same layout: `keymaps/vial/keymap.c` includes `keymaps/default/keymap.c`. The `vial` keymap adds `vial.json`, the keyboard UID and the unlock combo.
+The keymaps share the same layout: `keymaps/vial/keymap.c` includes `keymaps/default/keymap.c`, and `default_left` is the same with the outer buttons swapped. The `vial` keymap adds `vial.json`, the keyboard UID and the unlock combo.
 
 The resulting `.uf2` is written to the root of the tree you built in.
 
