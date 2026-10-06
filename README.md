@@ -5,7 +5,6 @@ My handwired keyboards. Each folder holds everything needed to build one: the ca
 ## [Track Ball](trackball)
 
 A handwired trackball with a PMW3389 sensor, wired and wireless
-[Build guide](https://salavat.me/trackball/)
 
 <img width="1600" height="1200" alt="github" src="https://github.com/user-attachments/assets/d02efd9e-4a24-4a21-aa4a-819c395953a9" />
 
@@ -13,7 +12,6 @@ A handwired trackball with a PMW3389 sensor, wired and wireless
 ## [Canon Boy](canonboy)
 
 A handwired replica of the Canon Cat keyboard
-[Build guide](https://salavat.me/canonboy/) 
 
 <img width="1600" height="1200" alt="Canon Boy" src="https://github.com/user-attachments/assets/28c35d11-c95f-499e-be69-8e90b0868887" />
 
@@ -21,15 +19,13 @@ A handwired replica of the Canon Cat keyboard
 ## [Atari Boy](atariboy)
 
 A handwired replica of the Atari 800 keyboard
-[Build guide](https://salavat.me/atariboy/) 
 
 <img width="1600" height="1200" alt="Atari Boy" src="https://github.com/user-attachments/assets/81e273b0-24ce-47bc-abb0-93877199652b" />
  
 
 ## [Track Boy](trackboy)
 
-A handwired TKL keyboard with trackball
-[Build guide](https://salavat.me/trackboy/) 
+A handwired TKL keyboard with trackball 
 
 <img width="1664" height="1248" alt="Track Boy" src="https://github.com/user-attachments/assets/d11d8608-9c91-44f3-b273-bd62fab1eb17" />
 
@@ -37,7 +33,6 @@ A handwired TKL keyboard with trackball
 ## [Tiny Boy](tinyboy)
 
 A handwired 33-key ortholinear keyboard
-[Build guide](https://salavat.me/tinyboy/)
 
 <img width="1664" height="641" alt="Tiny Boy" src="https://github.com/user-attachments/assets/abd640de-eacd-4eda-b5f2-581db103fccc" />
 
@@ -45,7 +40,6 @@ A handwired 33-key ortholinear keyboard
 ## [Small Boy](smallboy)
 
 A 51-key wireless handwired keyboard
-[Build guide](https://salavat.me/smallboy/) 
 
 <img width="1664" height="1248" alt="Small Boy" src="https://github.com/user-attachments/assets/581a1af5-19e0-4bc7-88e2-1e0e2bf9880d" />
 
@@ -53,10 +47,8 @@ A 51-key wireless handwired keyboard
 ## [Long Boy](longboy)
 
 A handwired 64-key ortholinear keyboard with a numpad
-[Build guide](https://salavat.me/longboy/) 
 
 <img width="1664" height="1248" alt="Long Boy" src="https://github.com/user-attachments/assets/cec6dfb9-d052-4eb7-8c38-996bc3c5582a" />
-
 
 ## License
 
