@@ -48,7 +48,6 @@ One button (experimental, left pin only):
 * Hold while moving the ball: select or drag, drag DPI applies while it is held, if enabled
 * No right click, no scroll and no middle click. Left handed mode has no effect
 
-Nothing waits for anything: left and right clicks are sent at once.
 
 ### Keymaps
 

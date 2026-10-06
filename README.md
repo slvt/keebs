@@ -2,6 +2,12 @@
 
 My handwired keyboards. Each folder holds everything needed to build one: the case files, a precompiled firmware binary, and the firmware source.
 
+## [Track Ball](trackball)
+
+A handwired trackball with a PMW3389 sensor, wired and wireless
+
+Build guide: coming soon
+
 ## [Canon Boy](canonboy)
 
 A handwired replica of the Canon Cat keyboard
@@ -25,12 +31,6 @@ A handwired TKL keyboard with trackball
 <img width="1664" height="1248" alt="Track Boy" src="https://github.com/user-attachments/assets/d11d8608-9c91-44f3-b273-bd62fab1eb17" />
 
 [Build guide](https://salavat.me/trackboy/) 
-
-## [Track Ball](trackball)
-
-A handwired trackball with a PMW3389 sensor, wired and wireless
-
-Build guide: coming soon
 
 ## [Tiny Boy](tinyboy)
 
