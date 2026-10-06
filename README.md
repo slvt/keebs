@@ -8,7 +8,7 @@ A handwired trackball with a PMW3389 sensor, wired and wireless
 
 <img width="1600" height="1200" alt="github" src="https://github.com/user-attachments/assets/d02efd9e-4a24-4a21-aa4a-819c395953a9" />
 
-Build guide: coming soon
+[Build guide](https://salavat.me/trackball/)
 
 ## [Canon Boy](canonboy)
 
