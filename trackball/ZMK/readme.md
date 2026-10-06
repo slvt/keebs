@@ -131,15 +131,15 @@ Debug logging is off in the regular build, it slows the firmware down. To read t
 
 ## Wiring
 
-Colour of the sensor cable to the pro micro pin. Do not guess, solder by this table:
+Sensor signal to the pro micro pin. Do not guess, solder by this table:
 
-| Wire | Pin | Port |
+| Signal | Pin | Port |
 | --- | --- | --- |
-| red | D1, P0.06 | CS |
-| brown | D0, P0.08 | MISO |
-| black | D2, P0.17 | MOSI |
-| white | D3, P0.20 | SCLK |
-| green | D4, P0.22 | MOT, interrupt, active low, pull-up |
+| CS | D1 | P0.06 |
+| MISO | D0 | P0.08 |
+| MOSI | D2 | P0.17 |
+| SCLK | D3 | P0.20 |
+| MOT | D4 | P0.22, interrupt, active low, pull-up |
 
 VCC is 3.3 V and GND is GND. Power the sensor from the pro micro, never from 5 V, the nice!nano v2 pins are 3.3 V only. Put a 100 nF ceramic between VCC and GND right at the module, many breakouts already have one.
 

@@ -2,14 +2,14 @@
 //
 // nice!nano v2 + PMW3389 optical sensor + 3 direct buttons.
 //
-// Sensor wiring, wire colour on the breakout to the pro micro pin:
-//   red      CS     D1  P0.06
-//   brown    MISO   D0  P0.08
-//   black    MOSI   D2  P0.17
-//   white    SCLK   D3  P0.20
-//   green    MOT    D4  P0.22   interrupt, active low, pull-up
-//   -        VCC    3.3V
-//   -        GND    GND
+// Sensor wiring, signal on the breakout to the pro micro pin:
+//   CS     D1  P0.06
+//   MISO   D0  P0.08
+//   MOSI   D2  P0.17
+//   SCLK   D3  P0.20
+//   MOT    D4  P0.22   interrupt, active low, pull-up
+//   VCC    3.3V
+//   GND    GND
 //
 // Buttons, active low to GND with internal pull-up:
 //   left    D7  P0.11
