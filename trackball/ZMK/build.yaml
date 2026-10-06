@@ -2,3 +2,6 @@
 include:
   - board: nice_nano_v2
     shield: trackball_wireless
+
+  - board: nice_nano_v2
+    shield: trackball_wireless_left

@@ -6,14 +6,13 @@
 //   2 right   D9
 //
 // Behaviour
-//   left tap              left click, right click in left handed mode
+//   left tap              left click
 //   middle tap            middle click
 //   middle hold           vertical scroll mode, held
-//   right tap             right click, left click in left handed mode
+//   right tap             right click
 //   middle hold + left    DPI down one step
 //   middle hold + right   DPI up one step
-//   left + right together toggle left handed mode
-//   all three together    bootloader
+//   left button held while plugging USB in    bootloader, see trackball_boot_button.c
 //
 // Layer map
 //   0  base, DPI step 2, 300, the default
@@ -22,15 +21,22 @@
 //   3  DPI step 2, 300      addressable so the default step can be restored
 //   4  DPI step 3, 400
 //   5  DPI step 4, 500
-//   6  left handed, swaps left and right
-//   7  scroll + step 0
-//   8  scroll + step 1
-//   9  scroll + step 2
-//  10  scroll + step 3
-//  11  scroll + step 4
+//   6  scroll + step 0
+//   7  scroll + step 1
+//   8  scroll + step 2
+//   9  scroll + step 3
+//  10  scroll + step 4
 //
-// The chord is a combo, so every button press waits out its timeout. 50 ms
-// default is the compromise. Lower it if the extra latency bothers you.
+// No combos, so every button press goes out at once. Left handed is a separate
+// build: trackball_wireless_left.keymap defines LEFT_HANDED and includes this
+// file, which swaps left and right on the base layer. Nothing else differs.
+#ifdef LEFT_HANDED
+#define BASE_LEFT RCLK
+#define BASE_RIGHT LCLK
+#else
+#define BASE_LEFT LCLK
+#define BASE_RIGHT RCLK
+#endif
 
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
@@ -49,25 +55,9 @@
             // Any other button pressed while this is down makes it a hold at once,
             // so middle plus left or right is always a DPI step, never a stray click.
             flavor = "hold-preferred";
-            tapping-term-ms = <200>;
+            tapping-term-ms = <150>;
             bindings = <&mo>, <&mkp>;
             display-name = "Mouse Layer-Tap";
-        };
-    };
-
-    combos {
-        compatible = "zmk,combos";
-
-        combo_bootloader {
-            key-positions = <0 1 2>;
-            timeout-ms = <50>;
-            bindings = <&bootloader>;
-        };
-
-        combo_handedness {
-            key-positions = <0 2>;
-            timeout-ms = <50>;
-            bindings = <&tog 6>;
         };
     };
 
@@ -77,87 +67,76 @@
         default_layer {
             display-name = "Base 300";
             bindings = <
-                &mkp LCLK  &mkp_lt 9 MCLK  &mkp RCLK
+                &mkp BASE_LEFT  &mkp_lt 8 MCLK  &mkp BASE_RIGHT
             >;
         };
 
         layer_1 {
             display-name = "DPI 0 100";
             bindings = <
-                &trans      &mkp_lt 7 MCLK  &trans
+                &trans      &mkp_lt 6 MCLK  &trans
             >;
         };
 
         layer_2 {
             display-name = "DPI 1 200";
             bindings = <
-                &trans      &mkp_lt 8 MCLK  &trans
+                &trans      &mkp_lt 7 MCLK  &trans
             >;
         };
 
         layer_3 {
             display-name = "DPI 2 300";
             bindings = <
-                &trans      &mkp_lt 9 MCLK  &trans
+                &trans      &mkp_lt 8 MCLK  &trans
             >;
         };
 
         layer_4 {
             display-name = "DPI 3 400";
             bindings = <
-                &trans      &mkp_lt 10 MCLK  &trans
+                &trans      &mkp_lt 9 MCLK  &trans
             >;
         };
 
         layer_5 {
             display-name = "DPI 4 500";
             bindings = <
-                &trans      &mkp_lt 11 MCLK  &trans
-            >;
-        };
-
-        // Sits above the DPI layers so the swap wins in normal use, but below
-        // the scroll layers so scroll mode keeps its own button meanings. The
-        // middle button is transparent here so it falls through to layer 0 and
-        // stays a hold tap.
-        layer_6 {
-            display-name = "Left handed";
-            bindings = <
-                &mkp RCLK  &trans      &mkp LCLK
+                &trans      &mkp_lt 10 MCLK  &trans
             >;
         };
 
         // Scroll layers. Left and right step the DPI instead of clicking, and
         // &to also leaves scroll mode so the new DPI applies straight away.
-        layer_7 {
+        layer_6 {
             display-name = "Scroll 100";
             bindings = <
                 &none  &none  &to 2
             >;
         };
 
-        layer_8 {
+        layer_7 {
             display-name = "Scroll 200";
             bindings = <
                 &to 1  &none  &to 3
             >;
         };
 
-        layer_9 {
+        layer_8 {
             display-name = "Scroll 300";
             bindings = <
                 &to 2  &none  &to 4
             >;
         };
 
-        layer_10 {
+        layer_9 {
             display-name = "Scroll 400";
             bindings = <
                 &to 3  &none  &to 5
             >;
         };
 
-        layer_11 {
+        layer_10 {
             display-name = "Scroll 500";
             bindings = <
                 &to 4  &none  &none

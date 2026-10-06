@@ -134,27 +134,27 @@
         // the cursor while this layer is held.
 
         scroll_step0 {
-            layers = <7>;
+            layers = <6>;
             input-processors = <&y_to_scroll &zip_x_scaler 0 1 &zip_scroll_scaler 1 40>;
         };
 
         scroll_step1 {
-            layers = <8>;
+            layers = <7>;
             input-processors = <&y_to_scroll &zip_x_scaler 0 1 &zip_scroll_scaler 1 40>;
         };
 
         scroll_step2 {
-            layers = <9>;
+            layers = <8>;
             input-processors = <&y_to_scroll &zip_x_scaler 0 1 &zip_scroll_scaler 1 40>;
         };
 
         scroll_step3 {
-            layers = <10>;
+            layers = <9>;
             input-processors = <&y_to_scroll &zip_x_scaler 0 1 &zip_scroll_scaler 1 40>;
         };
 
         scroll_step4 {
-            layers = <11>;
+            layers = <10>;
             input-processors = <&y_to_scroll &zip_x_scaler 0 1 &zip_scroll_scaler 1 40>;
         };
 

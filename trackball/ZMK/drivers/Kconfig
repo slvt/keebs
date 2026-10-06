@@ -1,2 +1,3 @@
 rsource "input/Kconfig"
 rsource "persist/Kconfig"
+rsource "boot_button/Kconfig"

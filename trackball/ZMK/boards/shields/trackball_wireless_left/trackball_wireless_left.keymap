@@ -1,0 +1,5 @@
+// Trackball Wireless, left handed build. The same keymap as the right handed
+// build, started with left and right swapped. Everything else is shared, so a
+// change to trackball_wireless.keymap lands in both builds.
+#define LEFT_HANDED
+#include "../trackball_wireless/trackball_wireless.keymap"

@@ -1,0 +1,7 @@
+config TRACKBALL_BOOT_BUTTON
+    bool "Enter the bootloader when the left button is held at power up"
+    default y if SHIELD_TRACKBALL_WIRELESS || SHIELD_TRACKBALL_WIRELESS_LEFT
+    help
+      Reads the first button of the trackball_buttons kscan right after boot. If it
+      is held, the board reboots into the UF2 bootloader. Needs the nRF52 UF2
+      bootloader of the nice!nano, and does nothing if the firmware cannot start.

@@ -1,12 +1,12 @@
-# Remember the DPI step and left handed mode of the trackball across power cycles.
+# Remember the DPI step of the trackball across power cycles.
 
 config TRACKBALL_PERSIST
-    bool "Persist the trackball DPI step and left handed mode"
-    default y if SHIELD_TRACKBALL_WIRELESS
+    bool "Persist the trackball DPI step"
+    default y if SHIELD_TRACKBALL_WIRELESS || SHIELD_TRACKBALL_WIRELESS_LEFT
     select SETTINGS
     help
       Watches the layers of the trackball_wireless keymap, saves the active DPI
-      step and left handed mode to flash and restores them at boot.
+      step to flash and restores it at boot.
 
 config TRACKBALL_PERSIST_SAVE_DELAY_MS
     int "Delay before a changed state is written to flash, in ms"

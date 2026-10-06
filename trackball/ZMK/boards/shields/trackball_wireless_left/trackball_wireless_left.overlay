@@ -1,0 +1,2 @@
+// Trackball Wireless, left handed build. Same hardware, same overlay.
+#include "../trackball_wireless/trackball_wireless.overlay"

@@ -16,7 +16,7 @@
         },
         {
             "name": "TB_MID_BTN",
-            "title": "Middle trackball button. Tap for middle click, hold for scroll. Left plus right together toggles left handed mode.",
+            "title": "Middle trackball button. Tap for middle click, hold for scroll.",
             "shortName": "MMB\nScroll"
         }
     ],

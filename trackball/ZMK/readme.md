@@ -4,7 +4,7 @@ ZMK config for the wireless version of the [Track Ball](..), a handwired trackba
 
 * Keyboard Maintainer: [Salavat Abdullin](https://github.com/slvt)
 * Hardware Supported: nice!nano v2 with a PixArt optical sensor module
-* Shield name: `trackball_wireless`
+* Shield name: `trackball_wireless` (right handed) or `trackball_wireless_left` (left handed)
 
 No matrix at all. Three buttons wired straight to GPIO, read by `zmk,kscan-gpio-direct`. Movement comes from a `zmk,input-listener` on the sensor node, so orientation, DPI and scroll behaviour all live in the overlay rather than the keymap.
 
@@ -34,22 +34,21 @@ All three are active low to GND with the internal pull-up, no external resistors
 
 | Press | Result |
 | --- | --- |
-| left tap | left click. Right click while in left handed mode |
-| left + right together | toggle left handed mode. A DPI change switches it off again, press left + right to bring it back |
-| right tap | right click. Left click while in left handed mode |
+| left tap | left click (right click in the left handed build) |
+| right tap | right click (left click in the left handed build) |
 | middle tap | middle click |
 | middle hold | scroll mode, held. Movement becomes vertical scroll, buttons below apply |
 | middle hold, then left | DPI down one step |
 | middle hold, then right | DPI up one step |
-| all three together | bootloader |
+| left held while plugging USB in | bootloader, see Bootloader below |
 
 The middle button is a hold tap. Tap gives a middle click, holding it enters scroll for as long as you keep it down.
 
 ## Changing hand
 
-Press the left and right buttons together. The left and right click swap, so the same physical hand drives the same logical button. Press them together again to swap back.
+There are two builds from one keymap: `trackball_wireless` is right handed, `trackball_wireless_left` is left handed, with left and right swapped. Flash the one for your hand. To change hand later, flash the other build. There is no combo to switch it on the fly, that is what keeps every click instant.
 
-The mode survives a DPI change and a Bluetooth reconnect, it lives in a layer of its own. You only need it if you push the trackball around with two different hands.
+The left build is [`trackball_wireless_left.keymap`](boards/shields/trackball_wireless_left/trackball_wireless_left.keymap), two lines that define `LEFT_HANDED` and include the shared keymap, so there is nothing to keep in sync. Only the base layer differs. DPI steps in scroll mode are not mirrored, middle hold, then left is DPI down in both builds.
 
 ## Changing DPI
 
@@ -69,7 +68,7 @@ One caveat worth knowing: the sensor itself is fixed at 400 CPI in the overlay a
 
 ## Remembering settings
 
-The DPI step and left handed mode are keymap layers, which ZMK keeps in RAM. A small module, `drivers/persist/trackball_persist.c`, watches the layers, writes the active DPI step and left handed mode to flash 2 seconds after the last change, and restores them at boot. After a power cycle the trackball comes back with the step and the hand you left it on. The 2 second delay is `CONFIG_TRACKBALL_PERSIST_SAVE_DELAY_MS`: switching off sooner than that loses the last change. Scroll mode is never saved, it is only active while the middle button is held. Saved values belong to one build: every build is stamped with the commit it was made from, so after flashing a `.uf2` from a new commit the trackball starts from the defaults in the keymap, and from then on remembers again. Flashing the same build again keeps the saved values. The module is on by default for `trackball_wireless` only.
+The DPI step is a keymap layer, which ZMK keeps in RAM. A small module, `drivers/persist/trackball_persist.c`, watches the layers, writes the active DPI step to flash 2 seconds after the last change, and restores them at boot. After a power cycle the trackball comes back with the step you left it on. The 2 second delay is `CONFIG_TRACKBALL_PERSIST_SAVE_DELAY_MS`: switching off sooner than that loses the last change. Scroll mode is never saved, it is only active while the middle button is held. Saved values belong to one build: every build is stamped with the commit it was made from, so after flashing a `.uf2` from a new commit the trackball starts from the defaults in the keymap, and from then on remembers again. Flashing the same build again keeps the saved values. The module is on by default for `trackball_wireless` and `trackball_wireless_left`.
 
 ## Changing the speeds in the firmware
 
@@ -90,8 +89,7 @@ If you change the default step, also change which layer the middle button's hold
 | --- | --- |
 | 0 | base, step 2, the default |
 | 1 to 5 | one per DPI step, addressable so the default step can come back |
-| 6 | left handed, swaps left and right |
-| 7 to 11 | scroll mode combined with each DPI step |
+| 6 to 10 | scroll mode combined with each DPI step |
 
 Scroll overrides come before the DPI overrides in the overlay, so holding the middle button switches to scrolling even while a DPI layer is active.
 
@@ -99,24 +97,17 @@ Scrolling is vertical only. The ZMK built in `zip_xy_to_scroll_mapper` also send
 
 Scroll speed is the `zip_scroll_scaler` of `1 40` on every scroll layer: one wheel step per forty sensor counts. A bigger second number is slower. The macOS scroll speed slider did not change anything for this device in testing, so tune it here.
 
-## Combos and latency
+## Latency
 
-Two combos, both at 50 ms: left and right for the handedness switch, all three positions for the bootloader. Combo matching means every ordinary press waits out that window, which is the cost of having them at all. Lower `timeout-ms` if you feel it. The middle button is a 200 ms hold tap on top of that, so a middle tap is quick and a middle hold is deliberately slow.
+There are no combos, so left and right clicks go out at once. The middle button is a 150 ms hold tap: released sooner it is a middle click, held longer it is scroll. If middle clicks turn into scroll, raise `tapping-term-ms` of `mkp_lt` in the keymap.
 
 ## Bootloader
 
-Press all three buttons together. The other two ways in are a double tap on the reset button of the nice!nano, or `Reset` from a Bluetooth keymap. Once in, the copy as a drive is `NICENANO`.
+**Switch the trackball off, hold the left button, plug the USB cable in.** The `NICENANO` drive appears. Copy the `.uf2` onto it and the board reboots by itself.
 
-This is a combo of all three positions at the usual 50 ms, so it needs no long press and there is nothing to hold for. Worth knowing: pressing all three together no longer clicks anything, that combination is the bootloader now. Left and right together toggle left handed mode.
+The power switch has to be off, or the board must not be running yet. The check happens once, in the first moments after power up. If the trackball is already on and you plug the cable in, the board keeps running, and the left button is just a left click. In that case switch it off first, then hold the left button and plug the cable in.
 
-Concretely, on the hardware it is this:
-
-1. Power the board. Plug USB in, or switch the battery on. This has to happen first, the combo is read by the running firmware and a board with no power reads nothing.
-2. Wait a second or two for the firmware to come up.
-3. Press all three buttons at the same time and let go.
-4. The `NICENANO` drive appears. Copy the `.uf2` onto it and the board reboots by itself.
-
-If step 3 gives you ordinary clicks instead, or toggles left handed mode, the combo did not match. Two presses a little apart in time miss the 50 ms window, and a press held past it counts as held rather than pressed. There is nothing to fix in that case, press them more together. If it keeps missing, double tapping the reset button on the nice!nano enters the same bootloader and does not depend on the keymap at all.
+A small module, `drivers/boot_button/trackball_boot_button.c`, reads the left button right after boot, and if it has been held for 100 ms the board reboots into the UF2 bootloader. It reads the first pin of `trackball_buttons` in the overlay and is on by default for both trackball builds (`CONFIG_TRACKBALL_BOOT_BUTTON`). It runs from the firmware, so it does nothing if the firmware cannot start. In that case, or with the reset button reachable, a double tap on the reset button of the nice!nano enters the same bootloader.
 
 ## Sensor orientation
 
@@ -126,17 +117,15 @@ If the pointer moves the wrong way after you fix the sensor in place, do not cha
 
 ## Building
 
-A ready-to-flash binary is in [`../firmware`](../firmware), so you only need to build if you want to change something.
+Ready to flash binaries are in [`../firmware`](../firmware): `trackball_wireless.uf2` for the right handed build and `trackball_wireless_left.uf2` for the left handed one. You only need to build if you want to change something.
 
-ZMK builds through GitHub Actions rather than on your own machine. This folder is a complete ZMK config with its own driver, so you do not need anything else from this repository:
+ZMK builds through GitHub Actions rather than on your own machine. This folder is a complete ZMK config with its own drivers, so you do not need anything else from this repository:
 
 1. Create a new repository on GitHub and copy the contents of this folder into its root.
-2. Push. The workflow in [`.github/workflows/build.yml`](.github/workflows/build.yml) runs on every push.
-3. Open the **Actions** tab, pick the finished run, and download the `firmware` artifact. The `.uf2` is inside.
+2. Push. The workflow in [`.github/workflows/build.yml`](.github/workflows/build.yml) runs on every push and builds both shields listed in [`build.yaml`](build.yaml).
+3. Open the **Actions** tab, pick the finished run, and download the `firmware` artifact. The `.uf2` files are inside.
 
-The board and shield combination is set in [`build.yaml`](build.yaml).
-
-The trackball is built without the ZMK Studio snippet on purpose. Studio rewrites the keymap at runtime and the three button layout with its layer combinations is not something you want handed to a generic editor. Orientation, DPI and scroll behaviour cannot be changed from Studio anyway, they are compiled in.
+The trackball is built without the ZMK Studio snippet on purpose. Studio rewrites the keymap at runtime and the layer layout with its DPI and scroll layers is not something you want handed to a generic editor. Orientation, DPI and scroll behaviour cannot be changed from Studio anyway, they are compiled in.
 
 Debug logging is off in the regular build, it slows the firmware down. To read the sensor product ID, make a temporary build with `-DCONFIG_INPUT_LOG_LEVEL_DBG=y` and USB logging.
 

@@ -1,3 +1,4 @@
 
 add_subdirectory_ifdef(CONFIG_INPUT input)
 add_subdirectory_ifdef(CONFIG_TRACKBALL_PERSIST persist)
+add_subdirectory_ifdef(CONFIG_TRACKBALL_BOOT_BUTTON boot_button)
