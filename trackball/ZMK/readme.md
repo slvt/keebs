@@ -117,7 +117,7 @@ If the pointer moves the wrong way after you fix the sensor in place, do not cha
 
 ## Building
 
-Ready to flash binaries are in [`../firmware`](../firmware): `trackball_wireless.uf2` for the right handed build and `trackball_wireless_left.uf2` for the left handed one. You only need to build if you want to change something.
+Ready to flash binaries are in [`../firmware`](../firmware): `zmk-right-hand.uf2` for the right handed build and `zmk-left-hand.uf2` for the left handed one. You only need to build if you want to change something.
 
 ZMK builds through GitHub Actions rather than on your own machine. This folder is a complete ZMK config with its own drivers, so you do not need anything else from this repository:
 
