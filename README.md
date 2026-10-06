@@ -26,6 +26,12 @@ A handwired TKL keyboard with trackball
 
 [Build guide](https://salavat.me/trackboy/) 
 
+## [Track Ball](trackball)
+
+A handwired trackball with a PMW3389 sensor, wired and wireless
+
+Build guide: coming soon
+
 ## [Tiny Boy](tinyboy)
 
 A handwired 33-key ortholinear keyboard
