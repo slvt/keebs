@@ -4,7 +4,7 @@ My handwired keyboards. Each folder holds everything needed to build one: the ca
 
 ## [Track Ball](trackball)
 
-A handwired trackball with a PMW3389 sensor, wired and wireless
+A handwired trackball with a PMW3389 sensor, wired (QMK, Vial) and wireless (ZMK)
 
 <img width="1600" height="1200" alt="github" src="https://github.com/user-attachments/assets/d02efd9e-4a24-4a21-aa4a-819c395953a9" />
 
