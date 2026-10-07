@@ -55,7 +55,7 @@ One button (experimental, left pin only):
 | --- | --- | --- |
 | Settings | in Vial, stored by Vial in EEPROM, survive flashing | fixed in the build, see below |
 | Number of buttons | Buttons option in Vial, 1, 2 or 3 | `TB_BUTTONS` in [`keymaps/default/config.h`](keymaps/default/config.h), 3 by default |
-| Left handed | Left handed checkbox | swap the first and last key of layer 0 in [`keymaps/default/keymap.c`](keymaps/default/keymap.c), `LAYOUT(TB_RIGHT_BTN, TB_MID_BTN, TB_LEFT_BTN)`, and build it yourself |
+| Left handed | Left handed checkbox | swap the first and last key of layer 0 in [`keymaps/default/keymap.c`](keymaps/default/keymap.c), `LAYOUT(TB_RIGHT_BTN, TB_MID_BTN, TB_LEFT_BTN)`, and build it yourself, or flash the prebuilt [`default-left-hand.uf2`](../firmware/default-left-hand.uf2) |
 | DPI | DPI option | gesture with 3 buttons, stored in EEPROM |
 | Scroll speed and drag DPI | options | fixed, 1/48 and drag DPI off |
 
