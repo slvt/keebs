@@ -25,7 +25,7 @@ A handwired replica of the Atari 800 keyboard
 
 ## [Track Boy](trackboy)
 
-A handwired TKL keyboard with trackball 
+A handwired keyboard with trackball 
 
 <img width="1664" height="1248" alt="Track Boy" src="https://github.com/user-attachments/assets/d11d8608-9c91-44f3-b273-bd62fab1eb17" />
 
